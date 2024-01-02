@@ -21,5 +21,5 @@ fn load_blob_asset(asset_server: Res<AssetServer>) {
     let url = get_blob();
     info!("Blob: {}", url);
 
-    let blob_handle: Handle<Image> = asset_server.load(url);
+    let _blob_handle: Handle<Image> = asset_server.load(url);
 }
