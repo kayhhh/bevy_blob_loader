@@ -1585,6 +1585,7 @@ dependencies = [
  "bevy_blob_loader",
  "js-sys",
  "wasm-bindgen",
+ "wasm-bindgen-futures",
 ]
 
 [[package]]

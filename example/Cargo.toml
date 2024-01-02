@@ -14,3 +14,4 @@ bevy = "0.12.1"
 js-sys = "0.3.66"
 wasm-bindgen = "0.2.89"
 bevy_blob_loader = { path = "../bevy_blob_loader" }
+wasm-bindgen-futures = "0.4.39"

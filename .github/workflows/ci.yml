@@ -40,6 +40,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: Swatinem/rust-cache@v2
       - run: nix develop -c cargo fmt --all
+      - run: nix develop -c prettier -w .
       - uses: EndBug/add-and-commit@v9
         with:
           message: "chore: format"

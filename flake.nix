@@ -37,6 +37,7 @@
 
         native_build_inputs = with pkgs; [
           cargo-auditable
+          nodePackages.prettier
           pkg-config
           trunk
           wasm-bindgen-cli
