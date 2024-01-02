@@ -8,3 +8,8 @@ license = "MIT OR Apache-2.0"
 
 [profile.release]
 lto = true
+
+[dependencies]
+bevy = "0.12.1"
+js-sys = "0.3.66"
+wasm-bindgen = "0.2.89"
