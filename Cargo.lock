@@ -1578,6 +1578,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "example"
+version = "0.0.0"
+dependencies = [
+ "bevy",
+ "bevy_blob_loader",
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "fastrand"
 version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

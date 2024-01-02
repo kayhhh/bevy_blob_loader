@@ -6,7 +6,8 @@ extern "C" {
     fn get_blob() -> String;
 }
 
-fn main() {
+#[wasm_bindgen(start)]
+fn start() {
     App::new()
         .add_plugins((
             // Must be added before AssetPlugin (which is inside DefaultPlugins)
