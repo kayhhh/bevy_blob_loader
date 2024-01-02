@@ -1,7 +1,8 @@
 use bevy::prelude::*;
+use bevy_blob_loader::BlobLoaderPlugin;
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "/examples/load_blob.js")]
+#[wasm_bindgen(module = "/blob.js")]
 extern "C" {
     fn get_blob() -> String;
 }
@@ -11,7 +12,7 @@ fn start() {
     App::new()
         .add_plugins((
             // Must be added before AssetPlugin (which is inside DefaultPlugins)
-            bevy_blob_loader::BlobLoaderPlugin,
+            BlobLoaderPlugin,
             DefaultPlugins,
         ))
         .add_systems(Startup, load_blob_asset)
