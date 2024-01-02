@@ -1,0 +1,10 @@
+[package]
+name = "bevy_blob_loader"
+description = ""
+version = "0.0.0"
+edition = "2021"
+repository = "https://github.com/kayhhh/bevy_blob_loader"
+license = "MIT OR Apache-2.0"
+
+[profile.release]
+lto = true
