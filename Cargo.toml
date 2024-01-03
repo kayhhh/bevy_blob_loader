@@ -6,7 +6,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 repository = "https://github.com/kayhhh/bevy_blob_loader"
 license = "MIT OR Apache-2.0"
