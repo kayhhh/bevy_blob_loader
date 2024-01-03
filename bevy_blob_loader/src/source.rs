@@ -1,6 +1,5 @@
 use bevy::{
     asset::io::{AssetReader, AssetReaderError, PathStream, Reader, VecReader},
-    prelude::*,
     utils::BoxedFuture,
 };
 use js_sys::{Uint8Array, JSON};
