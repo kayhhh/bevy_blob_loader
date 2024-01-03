@@ -1,5 +1,3 @@
-//! # Blob Asset Loader
-//!
 //! This crate provides a [Bevy](https://bevyengine.org) plugin for loading assets from
 //! JavaScript blob URLs. This is useful for taking input from the user within a browser,
 //! such as a file upload or drag-and-drop.
