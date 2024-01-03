@@ -43,6 +43,7 @@ fn load_blob_asset(
     info!("Loading blob asset: {:?}", url);
     let handle: Handle<Image> = asset_server.load(url);
 
+    // Use the loaded image as a texture
     commands.spawn(Camera2dBundle::default());
     commands.spawn(SpriteBundle {
         texture: handle,
