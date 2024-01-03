@@ -1,5 +1,5 @@
 use bevy::{asset::AssetMetaCheck, prelude::*};
-use bevy_blob_loader::{serialize_url, BlobLoaderPlugin};
+use bevy_blob_loader::{path::serialize_url, BlobLoaderPlugin};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(module = "/blob.js")]
