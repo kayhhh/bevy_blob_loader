@@ -1,5 +1,5 @@
-use bevy::prelude::*;
-use bevy_blob_loader::BlobLoaderPlugin;
+use bevy::{asset::AssetMetaCheck, prelude::*};
+use bevy_blob_loader::{serialize_url, BlobLoaderPlugin};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen(module = "/blob.js")]
@@ -11,13 +11,18 @@ extern "C" {
 async fn start() {
     let blob_url = get_blob().await.as_string().expect("blob url not a string");
 
-    info!("Blob URL: {}", blob_url);
-
     App::new()
+        .insert_resource(AssetMetaCheck::Never)
         .add_plugins((
             // Must be added before AssetPlugin (which is inside DefaultPlugins)
             BlobLoaderPlugin,
-            DefaultPlugins,
+            DefaultPlugins.set(WindowPlugin {
+                primary_window: Some(Window {
+                    fit_canvas_to_parent: true,
+                    ..default()
+                }),
+                ..default()
+            }),
         ))
         .insert_resource(BlobToLoad(blob_url))
         .add_systems(Startup, load_blob_asset)
@@ -27,7 +32,21 @@ async fn start() {
 #[derive(Resource)]
 struct BlobToLoad(String);
 
-fn load_blob_asset(asset_server: Res<AssetServer>, to_load: Res<BlobToLoad>) {
-    let handle: Handle<Image> = asset_server.load(&to_load.0);
-    info!("Loaded blob asset: {:?}", handle);
+fn load_blob_asset(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    to_load: Res<BlobToLoad>,
+) {
+    // We have to add the file extension to the url
+    let url = serialize_url(&to_load.0, ".png");
+
+    info!("Loading blob asset: {:?}", url);
+    let handle: Handle<Image> = asset_server.load(url);
+
+    commands.spawn(Camera2dBundle::default());
+    commands.spawn(SpriteBundle {
+        texture: handle,
+        transform: Transform::from_xyz(100., 0., 0.),
+        ..default()
+    });
 }
