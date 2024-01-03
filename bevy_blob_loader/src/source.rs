@@ -58,7 +58,6 @@ impl AssetReader for BlobAssetReader {
     ) -> BoxedFuture<'a, Result<Box<Reader<'a>>, AssetReaderError>> {
         Box::pin(async move {
             let path = deserialize_path(path);
-            info!("BlobAssetReader reading {:?}", path);
             self.fetch_bytes(path).await
         })
     }
