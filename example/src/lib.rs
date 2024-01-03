@@ -9,6 +9,7 @@ extern "C" {
 
 #[wasm_bindgen(start)]
 async fn start() {
+    // Call a JavsScript function to generate a blob URL
     let blob_url = get_blob().await.as_string().expect("blob url not a string");
 
     App::new()
@@ -37,7 +38,8 @@ fn load_blob_asset(
     asset_server: Res<AssetServer>,
     to_load: Res<BlobToLoad>,
 ) {
-    // We have to add the file extension to the url
+    // Serialize the blob URL into a format that Bevy can load.
+    // This requires a file extension, which Bevy uses to determine which asset loader to use.
     let url = serialize_url(&to_load.0, "png");
 
     info!("Loading blob asset: {:?}", url);
