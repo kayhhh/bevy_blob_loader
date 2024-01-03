@@ -16,7 +16,7 @@
 //!   // Note, we have to serialize the URL into a special format for Bevy to recognize it.
 //!   // This takes in the file extension of the asset, which Bevy uses to determine how to
 //!   // process the fetched asset.
-//!   let serialized = serialize_url(&blob_url, ".png");
+//!   let serialized = serialize_url(&blob_url, "png");
 //!
 //!   let handle: Handle<Image> = asset_server.load(serialized);
 //! }

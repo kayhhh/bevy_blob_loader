@@ -38,7 +38,7 @@ fn load_blob_asset(
     to_load: Res<BlobToLoad>,
 ) {
     // We have to add the file extension to the url
-    let url = serialize_url(&to_load.0, ".png");
+    let url = serialize_url(&to_load.0, "png");
 
     info!("Loading blob asset: {:?}", url);
     let handle: Handle<Image> = asset_server.load(url);

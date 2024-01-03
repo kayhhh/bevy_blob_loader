@@ -452,6 +452,7 @@ dependencies = [
 name = "bevy_blob_loader"
 version = "0.0.2"
 dependencies = [
+ "base64 0.21.5",
  "bevy",
  "js-sys",
  "wasm-bindgen",

@@ -1,16 +1,22 @@
 use std::path::{Path, PathBuf};
 
+use base64::engine::{general_purpose::URL_SAFE_NO_PAD, Engine};
+
+/// Serialize a blob URL into a format that Bevy can recognize.
+/// This looks like `blob://<base64-encoded-url>.<file-extension>`.
 pub fn serialize_url(url: &str, file_ex: &str) -> String {
-    let url = url.replace("blob:http://", "blob://");
-    let url = url.replace("localhost:8080", "localhost");
-    format!("{}{}", url, file_ex)
+    let encoded = URL_SAFE_NO_PAD.encode(url.as_bytes());
+    format!("blob://{}.{}", encoded, file_ex)
 }
 
+/// Deserialize a serialized blob URL back into its original form.
 pub fn deserialize_url(url: &str) -> String {
-    let url = url.replace("localhost", "localhost:8080");
     let ext = Path::new(&url).extension().unwrap().to_str().unwrap();
-    let url = url.replace(&format!(".{}", ext), "");
-    format!("blob:http://{}", url)
+    let url = url.replace(&format!(".{}", ext), "").replace("blob://", "");
+    let decoded = URL_SAFE_NO_PAD
+        .decode(url.as_bytes())
+        .expect("Failed to decode URL");
+    String::from_utf8(decoded).expect("Failed to convert URL to UTF-8")
 }
 
 pub fn deserialize_path(path: &Path) -> PathBuf {
@@ -26,11 +32,11 @@ mod tests {
     #[test]
     fn test_serialize_url() {
         let url = "blob:http://localhost:8080/1234";
-        let serialized = "blob://localhost/1234.png";
+        let serialized = serialize_url(url, "png");
 
-        assert_eq!(serialize_url(url, ".png"), serialized);
-
+        // Processing done by Bevy
         let processed = serialized.replace("blob://", "");
+
         assert_eq!(deserialize_url(&processed), url);
     }
 }
