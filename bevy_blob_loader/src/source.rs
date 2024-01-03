@@ -72,7 +72,7 @@ impl AssetReader for BlobAssetReader {
 
     fn read_directory<'a>(
         &'a self,
-        path: &'a Path,
+        _path: &'a Path,
     ) -> BoxedFuture<'a, Result<Box<PathStream>, AssetReaderError>> {
         Box::pin(async move {
             Err(AssetReaderError::Io(std::io::Error::new(
@@ -84,7 +84,7 @@ impl AssetReader for BlobAssetReader {
 
     fn is_directory<'a>(
         &'a self,
-        path: &'a Path,
+        _path: &'a Path,
     ) -> BoxedFuture<'a, Result<bool, AssetReaderError>> {
         Box::pin(async move {
             Err(AssetReaderError::Io(std::io::Error::new(
