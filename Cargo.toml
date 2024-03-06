@@ -19,7 +19,7 @@ repository = "https://github.com/kayhhh/bevy_blob_loader"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-base64 = "0.21.5"
+base64 = "0.22.0"
 bevy = "0.13.0"
 js-sys = "0.3.66"
 wasm-bindgen = "0.2.91"
