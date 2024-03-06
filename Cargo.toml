@@ -20,9 +20,9 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 base64 = "0.21.5"
-bevy = "0.12.1"
+bevy = "0.13.0"
 js-sys = "0.3.66"
-wasm-bindgen = "0.2.89"
+wasm-bindgen = "0.2.91"
 wasm-bindgen-futures = "0.4.39"
 web-sys = { version = "0.3.66", features = ["Request", "Window", "Response"] }
 
@@ -31,7 +31,3 @@ opt-level = 1
 
 [profile.dev.package."*"]
 opt-level = 3
-
-[profile.release]
-lto = true
-opt-level = 'z'

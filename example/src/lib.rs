@@ -17,13 +17,7 @@ async fn start() {
         .add_plugins((
             // Must be added before AssetPlugin (which is inside DefaultPlugins)
             BlobLoaderPlugin,
-            DefaultPlugins.set(WindowPlugin {
-                primary_window: Some(Window {
-                    fit_canvas_to_parent: true,
-                    ..default()
-                }),
-                ..default()
-            }),
+            DefaultPlugins,
         ))
         .insert_resource(BlobToLoad(blob_url))
         .add_systems(Startup, load_blob_asset)

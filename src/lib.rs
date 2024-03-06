@@ -4,12 +4,11 @@
 //!
 //! ## Usage
 //!
-//! After adding the plugin to your Bevy app, you can load assets from blob URLs like so:
+//! After adding [BlobLoaderPlugin] to your Bevy app, you can load assets from blob URLs like so:
 //!
 //! ```
 //! use bevy::prelude::*;
 //! use bevy_blob_loader::path::serialize_url;
-//!
 //! fn my_system(asset_server: Res<AssetServer>) {
 //!   let blob_url = "blob:http://example.com/1234-5678-9012-3456";
 //!
@@ -21,7 +20,6 @@
 //!   let handle: Handle<Image> = asset_server.load(serialized);
 //! }
 //! ```
-//!
 
 use bevy::prelude::*;
 
