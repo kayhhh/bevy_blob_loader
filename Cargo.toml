@@ -24,7 +24,7 @@ bevy = "0.13.1"
 js-sys = "0.3.66"
 wasm-bindgen = "0.2.91"
 wasm-bindgen-futures = "0.4.39"
-web-sys = { version = "0.3.66", features = ["Request", "Window", "Response"] }
+web-sys = { version = "0.3.68", features = ["Request", "Window", "Response"] }
 
 [profile.dev]
 opt-level = 1
