@@ -9,6 +9,7 @@
 //! ```
 //! use bevy::prelude::*;
 //! use bevy_blob_loader::path::serialize_url;
+//!
 //! fn my_system(asset_server: Res<AssetServer>) {
 //!   let blob_url = "blob:http://example.com/1234-5678-9012-3456";
 //!
