@@ -13,11 +13,13 @@ async fn start() {
     let blob_url = get_blob().await.as_string().expect("blob url not a string");
 
     App::new()
-        .insert_resource(AssetMetaCheck::Never)
         .add_plugins((
-            // Must be added before AssetPlugin (which is inside DefaultPlugins)
+            // Must be added before AssetPlugin.
             BlobLoaderPlugin,
-            DefaultPlugins,
+            DefaultPlugins.set(AssetPlugin {
+                meta_check: AssetMetaCheck::Never,
+                ..default()
+            }),
         ))
         .insert_resource(BlobToLoad(blob_url))
         .add_systems(Startup, load_blob_asset)
