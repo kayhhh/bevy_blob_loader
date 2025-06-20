@@ -1,6 +1,6 @@
 use std::path::{Path, PathBuf};
 
-use base64::engine::{general_purpose::URL_SAFE_NO_PAD, Engine};
+use base64::engine::{Engine, general_purpose::URL_SAFE_NO_PAD};
 
 /// Serialize a blob URL into a format that Bevy can recognize.
 /// This looks like `blob://<base64-encoded-url>.<file-extension>`.

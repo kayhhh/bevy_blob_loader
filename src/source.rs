@@ -2,7 +2,7 @@ use bevy::{
     asset::io::{AssetReader, AssetReaderError, PathStream, Reader, VecReader},
     utils::BoxedFuture,
 };
-use js_sys::{Uint8Array, JSON};
+use js_sys::{JSON, Uint8Array};
 use std::{
     path::{Path, PathBuf},
     sync::Arc,
