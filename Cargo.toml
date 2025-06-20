@@ -8,23 +8,21 @@ edition.workspace = true
 
 [workspace]
 resolver = "2"
-members = [
-  "example",
-]
+members = ["example"]
 
 [workspace.package]
 version = "0.0.6"
-edition = "2021"
+edition = "2024"
 repository = "https://github.com/kayhhh/bevy_blob_loader"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-base64 = "0.22.0"
-bevy = "0.14.0"
-js-sys = "0.3.66"
-wasm-bindgen = "0.2.92"
-wasm-bindgen-futures = "0.4.39"
-web-sys = { version = "0.3.66", features = ["Request", "Window", "Response"] }
+base64 = "0.22.1"
+bevy = "0.16.1"
+js-sys = "0.3.77"
+wasm-bindgen = "0.2.100"
+wasm-bindgen-futures = "0.4.50"
+web-sys = { version = "0.3.77", features = ["Request", "Window", "Response"] }
 
 [profile.dev]
 opt-level = 1
