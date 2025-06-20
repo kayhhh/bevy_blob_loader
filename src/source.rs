@@ -1,6 +1,6 @@
 use bevy::{
-    asset::io::{AssetReader, AssetReaderError, PathStream, Reader, VecReader},
-    utils::BoxedFuture,
+    asset::io::{AssetReaderError, ErasedAssetReader, PathStream, Reader, VecReader},
+    tasks::BoxedFuture,
 };
 use js_sys::{JSON, Uint8Array};
 use std::{
@@ -16,7 +16,7 @@ use crate::path::deserialize_path;
 pub struct BlobAssetReader;
 
 impl BlobAssetReader {
-    async fn fetch_bytes<'a>(&self, path: PathBuf) -> Result<Box<Reader<'a>>, AssetReaderError> {
+    async fn fetch_bytes<'a>(&self, path: PathBuf) -> Result<Vec<u8>, AssetReaderError> {
         let window = web_sys::window().unwrap();
 
         let resp_value = JsFuture::from(window.fetch_with_str(path.to_str().unwrap()))
@@ -31,8 +31,7 @@ impl BlobAssetReader {
             200 => {
                 let data = JsFuture::from(resp.array_buffer().unwrap()).await.unwrap();
                 let bytes = Uint8Array::new(&data).to_vec();
-                let reader: Box<Reader> = Box::new(VecReader::new(bytes));
-                Ok(reader)
+                Ok(bytes)
             }
             404 => Err(AssetReaderError::NotFound(path)),
             status => Err(AssetReaderError::Io(Arc::new(std::io::Error::new(
@@ -41,22 +40,40 @@ impl BlobAssetReader {
             )))),
         }
     }
+
+    async fn fetch_reader<'a>(
+        &self,
+        path: PathBuf,
+    ) -> Result<Box<dyn Reader + 'a>, AssetReaderError> {
+        let bytes = self.fetch_bytes(path).await?;
+        let reader = Box::new(VecReader::new(bytes));
+        Ok(reader)
+    }
 }
 
-impl AssetReader for BlobAssetReader {
+impl ErasedAssetReader for BlobAssetReader {
     fn read<'a>(
         &'a self,
         path: &'a Path,
-    ) -> BoxedFuture<'a, Result<Box<Reader<'a>>, AssetReaderError>> {
+    ) -> BoxedFuture<'a, Result<Box<dyn Reader + 'a>, AssetReaderError>> {
         Box::pin(async move {
             let path = deserialize_path(path);
-            self.fetch_bytes(path).await
+            self.fetch_reader(path).await
         })
     }
     fn read_meta<'a>(
         &'a self,
         path: &'a Path,
-    ) -> BoxedFuture<'a, Result<Box<Reader<'a>>, AssetReaderError>> {
+    ) -> BoxedFuture<'a, Result<Box<dyn Reader + 'a>, AssetReaderError>> {
+        Box::pin(async move {
+            let path = deserialize_path(path);
+            self.fetch_reader(path).await
+        })
+    }
+    fn read_meta_bytes<'a>(
+        &'a self,
+        path: &'a Path,
+    ) -> BoxedFuture<'a, Result<Vec<u8>, AssetReaderError>> {
         Box::pin(async move {
             let path = deserialize_path(path);
             self.fetch_bytes(path).await
