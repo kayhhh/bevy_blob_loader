@@ -18,7 +18,7 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 base64 = "0.22.1"
-bevy = "0.16.1"
+bevy = "0.17.1"
 js-sys = "0.3.77"
 wasm-bindgen = "0.2.100"
 wasm-bindgen-futures = "0.4.50"
