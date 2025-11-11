@@ -89,6 +89,7 @@
             (with pkgs; [
               cargo-edit
               cargo-release
+              cargo-nextest
               cargo-watch
             ])
             ++ [ rustToolchain ]
