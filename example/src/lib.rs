@@ -39,13 +39,12 @@ fn load_blob_asset(
     let url = serialize_url(&to_load.0, "png");
 
     info!("Loading blob asset: {:?}", url);
-    let handle: Handle<Image> = asset_server.load(url);
+    let image: Handle<Image> = asset_server.load(url);
 
     // Use the loaded image as a texture
-    commands.spawn(Camera2dBundle::default());
-    commands.spawn(SpriteBundle {
-        texture: handle,
-        transform: Transform::from_xyz(100., 0., 0.),
-        ..default()
-    });
+    commands.spawn(Camera2d);
+    commands.spawn((
+        Sprite { image, ..default() },
+        Transform::from_xyz(100., 0., 0.),
+    ));
 }
